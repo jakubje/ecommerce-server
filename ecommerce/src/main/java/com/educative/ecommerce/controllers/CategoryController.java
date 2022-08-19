@@ -16,8 +16,12 @@ import java.util.Objects;
 @RequestMapping("/category")
 public class CategoryController {
 
-    @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createCategory(@Valid @RequestBody Category category) {
@@ -42,6 +46,7 @@ public class CategoryController {
         }
         return new ResponseEntity<>(new ApiResponse(false, "category does not exist"), HttpStatus.NOT_FOUND);
     }
+
 
 }
 
