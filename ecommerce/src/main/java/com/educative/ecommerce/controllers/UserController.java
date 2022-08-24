@@ -1,7 +1,10 @@
 package com.educative.ecommerce.controllers;
 
+import com.educative.ecommerce.dto.users.SignInDto;
+import com.educative.ecommerce.dto.users.SignInResponseDto;
 import com.educative.ecommerce.dto.users.SignUpResponseDto;
 import com.educative.ecommerce.dto.users.SignupDto;
+import com.educative.ecommerce.exceptions.AuthenticationFailException;
 import com.educative.ecommerce.exceptions.CustomException;
 import com.educative.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +23,10 @@ public class UserController {
     @PostMapping("/signup")
     public SignUpResponseDto SignUp(@RequestBody SignupDto signupDto) throws CustomException{
         return userService.signUp(signupDto);
+    }
+
+    @PostMapping("/signIn")
+    public SignInResponseDto SignIn(@RequestBody SignInDto signInDto) throws CustomException, AuthenticationFailException {
+        return userService.signIn(signInDto);
     }
 }

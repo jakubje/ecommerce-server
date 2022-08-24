@@ -1,7 +1,11 @@
 package com.educative.ecommerce.service;
 
+import com.educative.ecommerce.config.MessageStrings;
+import com.educative.ecommerce.dto.users.SignInDto;
+import com.educative.ecommerce.dto.users.SignInResponseDto;
 import com.educative.ecommerce.dto.users.SignUpResponseDto;
 import com.educative.ecommerce.dto.users.SignupDto;
+import com.educative.ecommerce.exceptions.AuthenticationFailException;
 import com.educative.ecommerce.exceptions.CustomException;
 import com.educative.ecommerce.model.AuthenticationToken;
 import com.educative.ecommerce.model.User;
@@ -47,10 +51,36 @@ public class UserService {
             final AuthenticationToken authenticationToken = new AuthenticationToken(user);
 
             authenticationService.saveConfirmationToken(authenticationToken);
+
             return new SignUpResponseDto("success", "user created successfully");
         }catch (Exception e){
             throw new CustomException(e.getMessage());
         }
+    }
+
+
+
+    public SignInResponseDto signIn(SignInDto signInDto) throws AuthenticationFailException, CustomException {
+        User user = userRepository.findByEmail(signInDto.getEmail());
+        if(!Objects.nonNull(user)){
+            throw new AuthenticationFailException("user not present");
+        }
+        try{
+            if (!user.getPassword().equals(hashPassword(signInDto.getPassword()))){
+                throw new AuthenticationFailException(MessageStrings.WRONG_PASSWORD);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            logger.error("hashing password failed {}", e.getMessage());
+            throw new CustomException(e.getMessage());
+        }
+        AuthenticationToken token = authenticationService.getToken(user);
+
+        if(!Objects.nonNull(token)){
+            throw new CustomException(MessageStrings.AUTH_TOEKN_NOT_PRESENT);
+        }
+
+        return new SignInResponseDto("success", token.getToken());
     }
 
     private String hashPassword(String password) throws NoSuchAlgorithmException {

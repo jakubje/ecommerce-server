@@ -22,6 +22,9 @@ public class AuthenticationToken {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
+    public AuthenticationToken() {
+    }
+
     public AuthenticationToken(User user) {
         this.user = user;
         this.createdDate = new Date();
