@@ -25,10 +25,10 @@ public class Category {
         this.description = description;
     }
 
-    public Category(@NotBlank String categoryName, @NotBlank String description, @NotBlank String imageUrl){
+    public Category(@NotBlank String categoryName, @NotBlank String description, @NotBlank String imageURL){
         this.categoryName = categoryName;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.imageUrl = imageURL;
     }
 
     public Integer getId() {
@@ -55,12 +55,12 @@ public class Category {
         this.description = description;
     }
 
-    public String getImageUrl() {
+    public String getImageURL() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageURL(String imageURL) {
+        this.imageUrl = imageURL;
     }
 
     @Override

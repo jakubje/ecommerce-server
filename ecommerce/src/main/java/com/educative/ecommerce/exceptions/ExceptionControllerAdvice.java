@@ -11,4 +11,29 @@ public class ExceptionControllerAdvice {
     public final ResponseEntity<String> handleUpdateFailException(CustomException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value = ProductNotExistException.class)
+    public final ResponseEntity<String> handleUpdateFailException(ProductNotExistException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = CartItemNotExistException.class)
+    public final ResponseEntity<String> handleCartItemNotExistException(CartItemNotExistException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = OrderNotFoundException.class)
+    public final ResponseEntity<String> handleUpdateFailException(OrderNotFoundException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = WishListItemNotExistException.class)
+    public final ResponseEntity<String> handleWishListItemNotExistException(WishListItemNotExistException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = WishListItemAlreadyExistsException.class)
+    public final ResponseEntity<String> handleWishListItemAlreadyExistsException(WishListItemAlreadyExistsException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

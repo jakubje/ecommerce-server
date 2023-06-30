@@ -42,6 +42,16 @@ public class WishList {
         this.createdDate = new Date();
     }
 
+    @Override
+    public String toString() {
+        return "WishList{" +
+                "id=" + id +
+                ", user=" + user +
+                ", createdDate=" + createdDate +
+                ", product=" + product +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

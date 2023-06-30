@@ -1,15 +1,15 @@
 package com.educative.ecommerce.controllers;
 
 import com.educative.ecommerce.common.ApiResponse;
-import com.educative.ecommerce.dto.ProductDto;
+import com.educative.ecommerce.dto.product.ProductDto;
 import com.educative.ecommerce.exceptions.AuthenticationFailException;
+import com.educative.ecommerce.exceptions.WishListItemAlreadyExistsException;
+import com.educative.ecommerce.exceptions.WishListItemNotExistException;
 import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.model.WishList;
 import com.educative.ecommerce.repository.ProductRepository;
-import com.educative.ecommerce.repository.WishListRepository;
 import com.educative.ecommerce.service.AuthenticationService;
-import com.educative.ecommerce.service.ProductService;
 import com.educative.ecommerce.service.WishListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,7 +34,7 @@ public class WishListController {
     private ProductRepository productRepository;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> addWishList(@RequestBody ProductDto productDto, @RequestParam("token") String token) throws AuthenticationFailException{
+    public ResponseEntity<ApiResponse> addWishList(@RequestBody ProductDto productDto, @RequestParam("token") String token) throws AuthenticationFailException, WishListItemAlreadyExistsException {
         authenticationService.authenticate(token);
 
         User user = authenticationService.getUser(token);
@@ -60,6 +60,15 @@ public class WishListController {
         }
 
         return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 
+    @DeleteMapping("/delete/{wishListItemId}")
+    public ResponseEntity<ApiResponse> deleteWishListItem(@PathVariable("wishListItemId") int wishListItemId, @RequestParam("token") String token) throws AuthenticationFailException, WishListItemNotExistException {
+        authenticationService.authenticate(token);
+
+        User user = authenticationService.getUser(token);
+
+        wishListService.deleteWishListItem(wishListItemId, user);
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Item has been removed"), HttpStatus.OK);
     }
 }

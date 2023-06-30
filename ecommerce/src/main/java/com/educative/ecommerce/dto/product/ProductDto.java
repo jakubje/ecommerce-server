@@ -1,4 +1,4 @@
-package com.educative.ecommerce.dto;
+package com.educative.ecommerce.dto.product;
 
 import com.educative.ecommerce.model.Product;
 
@@ -24,7 +24,7 @@ public class ProductDto {
     public ProductDto(Product product){
         this.setId(product.getId());
         this.setName(product.getName());
-        this.setImageURL(product.getImageUrl());
+        this.setImageURL(product.getImageURL());
         this.setDescription(product.getDescription());
         this.setPrice(product.getPrice());
         this.setCategoryId(product.getCategory().getId());

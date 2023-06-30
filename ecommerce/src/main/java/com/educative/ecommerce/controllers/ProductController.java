@@ -1,7 +1,7 @@
 package com.educative.ecommerce.controllers;
 
 import com.educative.ecommerce.common.ApiResponse;
-import com.educative.ecommerce.dto.ProductDto;
+import com.educative.ecommerce.dto.product.ProductDto;
 import com.educative.ecommerce.model.Category;
 import com.educative.ecommerce.service.CategoryService;
 import com.educative.ecommerce.service.ProductService;

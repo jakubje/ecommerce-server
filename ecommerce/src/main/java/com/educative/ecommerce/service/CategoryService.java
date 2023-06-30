@@ -33,7 +33,7 @@ public class CategoryService {
         Category category = categoryRepository.findById(categoryID).get();
         category.setCategoryName(newCategory.getCategoryName());
         category.setDescription(newCategory.getDescription());
-        category.setImageUrl(newCategory.getImageUrl());
+        category.setImageURL(newCategory.getImageURL());
         categoryRepository.save(category);
     }
 }

@@ -2,7 +2,14 @@ package com.educative.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -10,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private @NotNull String name;
@@ -23,19 +30,18 @@ public class Product {
     @JoinColumn(name = "category_id", nullable = false)
     Category category;
 
-    public Product() {
-    }
 
-    public Product(String name, String imageUrl, double price, String description, Category category){
+    public Product(String name, String imageURL, double price, String description, Category category) {
         super();
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.imageUrl = imageURL;
         this.price = price;
         this.description = description;
         this.category = category;
     }
 
-
+    public Product() {
+    }
 
     public Integer getId() {
         return id;
@@ -53,12 +59,12 @@ public class Product {
         this.name = name;
     }
 
-    public String getImageUrl() {
+    public String getImageURL() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageURL(String imageURL) {
+        this.imageUrl = imageURL;
     }
 
     public double getPrice() {
@@ -90,10 +96,9 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", imageUrl='" + imageUrl + '\'' +
+                ", imageURL='" + imageUrl + '\'' +
                 ", price=" + price +
                 ", description='" + description + '\'' +
-                ", category=" + category +
                 '}';
     }
 }
